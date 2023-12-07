@@ -52,7 +52,7 @@ import           Ledger                                 (PubKeyHash, Address)
 import qualified PlutusAppsExtra.IO.Blockfrost          as Bf
 import           PlutusAppsExtra.Utils.Address          (addressToBech32, getStakeKey)
 import           Servant                                (Get, JSON, ReqBody, err404, err500, throwError, type (:<|>) ((:<|>)),
-                                                         (:>))
+                                                         (:>), Post)
 import           Servant.Server.Internal.ServerError    (ServerError (..))
 import           System.Directory                       (createDirectoryIfMissing)
 import           System.ProgressBar                     (incProgress)
@@ -188,7 +188,7 @@ getServerDelegatesHandler ip = delegationErrorH $ do
 
 ------------------------------------------- Get specific delegation info by address endpoint -------------------------------------------
 
-type GetDelegationInfo = "info" :>  ReqBody '[JSON] Address :> Get '[JSON] (Text, Integer)
+type GetDelegationInfo = "info" :>  ReqBody '[JSON] Address :> Post '[JSON] (Text, Integer)
 
 -- Get ip of delegated server and number of tokens by address endpoint
 getDelegationInfoHandler :: Address -> DelegationM (Text, Integer)
